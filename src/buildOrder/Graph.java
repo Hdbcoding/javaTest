@@ -17,8 +17,8 @@ public class Graph {
     }
 
     public void addEdge(String start, String end){
-        Project startNode = getOrCreateNode(start);
-        Project endNode = getOrCreateNode(end);
+        var startNode = getOrCreateNode(start);
+        var endNode = getOrCreateNode(end);
         startNode.addNeighbor(endNode);
     }
 
@@ -27,11 +27,11 @@ public class Graph {
     }
 
     public static Graph generateGraph(String[] nodes, String[][] edges) throws InstantiationException {
-        Graph graph = new Graph();
-        for (String node : nodes){
+        var graph = new Graph();
+        for (var node : nodes){
             graph.getOrCreateNode(node);
         }
-        for (String[] edge : edges){
+        for (var edge : edges){
             if (edge.length != 2) throw new InstantiationException("invalid edge definition");
             graph.addEdge(edge[0], edge[1]);
         }

@@ -43,7 +43,11 @@ public class Project {
     }
 
     public void dropDependency() {
-        dependencies++;
+        dependencies--;
+    }
+
+    public boolean hasDependencies() {
+        return dependencies > 0;
     }
 }
 
