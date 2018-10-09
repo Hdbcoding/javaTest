@@ -1,6 +1,7 @@
 package buildOrder;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class OrderProjects {
     public static String[] GetBuildOrderTopological(String[] projects, String[][] dependencies)
@@ -44,11 +45,29 @@ public class OrderProjects {
     }
 
     private static String[] orderProjectsDFS(Graph graph) {
-        ArrayList<Project> projects = graph.getNodes();
-        var results = new String[projects.size()];
-        ArrayList<String> pending = new ArrayList<>(projects.size());
+        var reverseBuild = new Stack<Project>();
+        var projects = graph.getNodes();
 
+        for (var project : projects)
+            if (project.getState() == ProjectState.Blank && !doDFS(project, reverseBuild)) return null;
 
-        return new String[0];
+        String[] result = new String[projects.size()];
+        for (int i = 0; i < result.length; i++){
+            result[i] = reverseBuild.pop().getName();
+        }
+        return result;
+    }
+
+    private static boolean doDFS(Project p, Stack<Project> reverseBuild) {
+        if (p.getState() == ProjectState.Building) return false;
+        if (p.getState() == ProjectState.Built) return true;
+
+        p.setState(ProjectState.Building);
+        var children = p.getChildren();
+        for (var child : children) if (!doDFS(child, reverseBuild)) return false;
+
+        p.setState(ProjectState.Built);
+        reverseBuild.push(p);
+        return true;
     }
 }
