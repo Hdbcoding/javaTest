@@ -47,12 +47,12 @@ public class TopologicalTests {
 
     @Test
     public void NoDependenciesDFS() {
-        String[] nodes = {"a", "b", "c"};
+        String[] nodes = {"c", "b", "a"};
         String[][] edges = new String[0][0];
         String[] result = TestDFS(nodes, edges);
         assertNotNull("Project list is null", result);
         assertEquals("Incorrect number of projects", 3, result.length);
-        assertArrayEquals(new String[]{"a", "b", "c"}, result);
+        assertArrayEquals(new String[]{"a", "b", "c"}, result); //note - dfs will be in reverse order for each topological level
     }
 
     @Test
