@@ -52,7 +52,7 @@ public class OrderProjects {
             if (project.getState() == ProjectState.Blank && !doDFS(project, reverseBuild)) return null;
 
         String[] result = new String[projects.size()];
-        for (int i = 0; i < result.length; i++){
+        for (int i = 0; i < result.length; i++) {
             result[i] = reverseBuild.pop().getName();
         }
         return result;

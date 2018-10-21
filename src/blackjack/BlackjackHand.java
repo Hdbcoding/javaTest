@@ -14,7 +14,7 @@ public class BlackjackHand extends Hand<BlackjackCard> {
             if (value == 1) aceCount++;
         }
 
-        while (aceCount > 0 && (score + 10) <= 21){
+        while (aceCount > 0 && (score + 10) <= 21) {
             score += 10;
             aceCount--;
         }

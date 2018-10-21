@@ -8,11 +8,6 @@ public class BlackjackCard extends Card {
 
     @Override
     public int value() {
-        if (isFace()) return 10;
-        return faceValue;
+        return Math.min(faceValue, 10);
     }
-
-    public boolean isAce() { return  faceValue == 1; }
-
-    public boolean isFace() { return faceValue >= 11; }
 }

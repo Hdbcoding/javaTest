@@ -5,7 +5,7 @@ import buildOrder.OrderProjects;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+//Cracking the Coding Interview, 6th Edition, problem 4.7 - Build Order
 public class TopologicalTests {
     @Test
     public void NoDependenciesTopological() {
@@ -18,24 +18,24 @@ public class TopologicalTests {
     }
 
     @Test
-    public void NullOnCycleTopological(){
+    public void NullOnCycleTopological() {
         String[] nodes = {"a", "b", "c"};
-        String[][] edges = { { "b", "a" }, { "c", "b" }, { "a", "c" } };
+        String[][] edges = {{"b", "a"}, {"c", "b"}, {"a", "c"}};
         String[] result = TestTopological(nodes, edges);
         assertNull("Project list is null", result);
     }
 
     @Test
-    public void ReverseOrderTopological(){
+    public void ReverseOrderTopological() {
         String[] nodes = {"a", "b", "c"};
-        String[][] edges = { { "b", "a" }, { "c", "b" } };
+        String[][] edges = {{"b", "a"}, {"c", "b"}};
         String[] result = TestTopological(nodes, edges);
         assertNotNull("Project list is null", result);
         assertEquals("Incorrect number of projects", 3, result.length);
         assertArrayEquals(new String[]{"c", "b", "a"}, result);
     }
 
-    private String[] TestTopological(String[] nodes, String[][] edges){
+    private String[] TestTopological(String[] nodes, String[][] edges) {
         String[] result = null;
         try {
             result = OrderProjects.GetBuildOrderTopological(nodes, edges);
@@ -56,17 +56,17 @@ public class TopologicalTests {
     }
 
     @Test
-    public void NullOnCycleDFS(){
+    public void NullOnCycleDFS() {
         String[] nodes = {"a", "b", "c"};
-        String[][] edges = { { "b", "a" }, { "c", "b" }, { "a", "c" } };
+        String[][] edges = {{"b", "a"}, {"c", "b"}, {"a", "c"}};
         String[] result = TestDFS(nodes, edges);
         assertNull("Project list is null", result);
     }
 
     @Test
-    public void ReverseOrderDFS(){
+    public void ReverseOrderDFS() {
         String[] nodes = {"a", "b", "c"};
-        String[][] edges = { { "b", "a" }, { "c", "b" } };
+        String[][] edges = {{"b", "a"}, {"c", "b"}};
         String[] result = TestDFS(nodes, edges);
         assertNotNull("Project list is null", result);
         assertEquals("Incorrect number of projects", 3, result.length);
