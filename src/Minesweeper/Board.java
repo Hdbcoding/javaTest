@@ -45,7 +45,11 @@ public class Board {
     public boolean allSpacesRevealed(){ return spacesLeft <= 0; }
 
     public void draw(){
+        System.out.println("  0123456789");
+        System.out.println();
+
         for (int i = 0; i < rows; i++){
+            System.out.print(i + " ");
             for (int j = 0; j < columns; j++){
                 var cell = board[i][j];
                 var result = "?";

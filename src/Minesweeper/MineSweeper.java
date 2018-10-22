@@ -39,14 +39,13 @@ public class MineSweeper {
             state = GameState.Won;
             System.out.println("Hey, you won!");
         }
-        board.draw();
     }
 
     private void gameLoop(){
         var s = new Scanner(System.in);
         System.out.println("Welcome to minesweeper");
-        board.draw();
         while (state == GameState.Playing){
+            board.draw();
             System.out.println("Choose your row: ");
             int row = s.nextInt();
             System.out.println("Choose your column: ");
@@ -55,6 +54,7 @@ public class MineSweeper {
             if (s.nextInt() != 1) continue;
             playMove(row, col);
         }
+        board.draw();
         System.out.println("Thanks for playing!");
     }
 }
