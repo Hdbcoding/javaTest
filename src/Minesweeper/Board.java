@@ -73,7 +73,7 @@ public class Board {
     private void setupCells() {
         int minesToAdd = mines;
         for (int i = 0; i < rows; i++){
-            for (int j = 0; j < rows; j++){
+            for (int j = 0; j < columns; j++){
                 board[i][j] = new Cell(minesToAdd > 0);
                 minesToAdd--;
             }
