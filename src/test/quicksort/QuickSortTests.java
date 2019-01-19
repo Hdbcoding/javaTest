@@ -11,8 +11,16 @@ import static org.junit.Assert.*;
 
 public class QuickSortTests {
     @Test
-    public void Homework(){
-        TestFile("homework", -1, -1, -1);
+    public void Homework() {        TestFile("homework", -1, -1, -1);    }
+
+    @Test
+    public void Test11_20(){
+        TestFile("11_20", 71, 73, 56);
+    }
+
+    @Test
+    public void Test16_100000(){
+        TestFile("16_100000", 2127173, 2079088, 1749103);
     }
 
     public void TestFile(String fileName, int first, int last, int median){
