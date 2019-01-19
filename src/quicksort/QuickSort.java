@@ -30,21 +30,35 @@ public class QuickSort {
     }
 
     private static int sortAndCountComparisons(List<Integer> data, int start, int end, PivotSelector rule) {
-        if (end - start <= 0) return 0;
-        int length = end - start;
-        var pivot = (int) rule.apply(data, start, end);
-        int pivotDestination = partition(data, pivot, start, end);
+        int length = end - start + 1;
+        if (length <= 1) return 0;
+        int pivotDestination = partition(data, start, end, rule);
         int left = sortAndCountComparisons(data, start, pivotDestination - 1, rule);
         int right = sortAndCountComparisons(data, pivotDestination + 1, end, rule);
-        return length + left + right;
+        return length - 1 + left + right;
     }
 
-    private static int partition(List<Integer> data, int pivot, int start, int end) {
-        return 0;
+    private static int partition(List<Integer> data, int start, int end, PivotSelector rule) {
+        rule.apply(data, start, end); //send pivot to beginning of array
+        int pivot = data.get(start);
+        int i = start + 1;
+        for (int j = start + 1; j <= end; j++){
+            if (data.get(j) < pivot) {
+                swap(data, i++, j);
+            }
+        }
+        swap(data, start, i - 1);
+        return i - 1;
     }
 
-    public static PivotSelector FirstElementPivot = (List<Integer> data, Integer start, Integer end) -> start;
-    public static PivotSelector LastElementPivot = (List<Integer> data, Integer start, Integer end) -> end;
+    private static void swap(List<Integer> data, int i, int j){
+        var value = data.get(i);
+        data.set(i, data.get(j));
+        data.set(j, value);
+    }
+
+    public static PivotSelector FirstElementPivot = (List<Integer> data, Integer start, Integer end) -> {}; //do nothing
+    public static PivotSelector LastElementPivot = (List<Integer> data, Integer start, Integer end) -> swap(data, end, start);
     public static PivotSelector MedianElementPivot = (List<Integer> data, Integer start, Integer end) ->
     {
         Integer middle = (start + end) / 2;
@@ -52,16 +66,11 @@ public class QuickSort {
         Integer second = data.get(middle);
         Integer third = data.get(end);
         if (first < second) {
-            if (second < third) return middle; //123
-            if (first < third) return end; //132
-            return start; //312
+            if (second < third) swap(data, middle, start); //123
+            else if (first < third) swap(data, end, start); //132
+        } else {
+            if (third < second) swap(data, middle, start); // 321
+            else if (third < first) swap(data, end, start); //231
         }
-        if (third < second) return middle; // 321
-        if (third < first) return end; //231
-        return start; //213
     };
-}
-
-interface PivotSelector {
-    public Integer apply(List<Integer> data, Integer start, Integer end);
 }

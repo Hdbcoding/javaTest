@@ -1,6 +1,6 @@
 package test.quicksort;
 
-import org.junit.Assert;
+import quicksort.PivotSelector;
 import quicksort.QuickSort;
 import org.junit.Test;
 
@@ -11,15 +11,24 @@ import static org.junit.Assert.*;
 
 public class QuickSortTests {
     @Test
-    public void LoadDataWorks(){
-        List<Integer> data = QuickSort.loadData("src\\quicksort\\data.txt");
-        assertEquals(10000, data.size());
+    public void Homework(){
+        TestFile("homework", -1, -1, -1);
     }
 
-    public void SortWorks(){
-        List<Integer> data = List.of(5, 4, 3, 2, 1);
-        var comparisons = QuickSort.sortAndCountComparisons(data);
-        System.out.println(comparisons);
-        assertEquals((Integer)1, data.get(0));
+    public void TestFile(String fileName, int first, int last, int median){
+        int fA = TestFile(fileName, QuickSort.FirstElementPivot);
+        int lA = TestFile(fileName, QuickSort.LastElementPivot);
+        int mA = TestFile(fileName, QuickSort.MedianElementPivot);
+        System.out.println("First: " + fA);
+        System.out.println("Last: " + lA);
+        System.out.println("Median: " + mA);
+        assertEquals(first, fA);
+        assertEquals(last, lA);
+        assertEquals(median, mA);
+    }
+
+    private int TestFile(String fileName, PivotSelector rule){
+        List<Integer> data = QuickSort.loadData("src\\quicksort\\"+fileName+".txt");
+        return QuickSort.sortAndCountComparisons(data, rule);
     }
 }
